@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SerieHub - عالم المسلسلات والأنمي</title>
+    <meta name="description" content="SerieHub - أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gold: #fbbf24;
+            
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a3e;
+            --bg-tertiary: #252552;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            
+            --border: rgba(255, 255, 255, 0.1);
+            --glow: rgba(99, 102, 241, 0.5);
+            --glow-secondary: rgba(236, 72, 153, 0.5);
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 25px 80px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 40px var(--glow);
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-full: 9999px;
+            
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: rgba(0, 0, 0, 0.02);
+            --bg-glass: rgba(255, 255, 255, 0.8);
+            --text-primary: #1e293b;
+            --text-secondary: rgba(0, 0, 0, 0.6);
+            --text-muted: rgba(0, 0, 0, 0.4);
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Custom Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+        }
+
+        ::selection {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ===== Preloader ===== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 99999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            animation: pulse-logo 1.5s ease-in-out infinite;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes pulse-logo {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.1); filter: brightness(1.2); }
+        }
+
+        .preloader-spinner {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .preloader-spinner::before,
+        .preloader-spinner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .preloader-spinner::before {
+            border-top-color: var(--primary);
+            border-right-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .preloader-spinner::after {
+            border-bottom-color: var(--secondary);
+            border-left-color: var(--secondary);
+            animation: spin 1s linear infinite reverse;
+            inset: 6px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .preloader-text {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            animation: fade-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ===== Animated Background ===== */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--gradient-dark);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            animation: bg-rotate 30s linear infinite;
+        }
+
+        @keyframes bg-rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .floating-shapes {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: float-shape 20s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(30px, 50px) scale(1.05); }
+        }
+
+        /* ===== Particles ===== */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all var(--transition-normal);
+        }
+
+        .header.scrolled {
+            background: rgba(15, 15, 35, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-md);
+            border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="light"] .header.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        /* ===== Logo ===== */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-normal);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(-10deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width var(--transition-normal);
+        }
+
+        .logo:hover .logo-text::after {
+            width: 100%;
+        }
+
+        /* ===== Search Bar ===== */
+        .search-wrapper {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--bg-glass);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            padding: 0.5rem 1rem;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-bar::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity var(--transition-normal);
+        }
+
+        .search-bar:focus-within {
+            border-color: transparent;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .search-bar:focus-within::before {
+            opacity: 1;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            padding: 0.5rem;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-btn {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+        }
+
+        .search-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ===== Nav Actions ===== */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-glass);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .nav-btn:hover::before,
+        .nav-btn.active::before {
+            opacity: 1;
+        }
+
+        .nav-btn span,
+        .nav-btn .badge {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn:hover {
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .badge {
+            background: var(--error);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .icon-btn {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            font-size: 1.4rem;
+            border-radius: 50%;
+        }
+
+        /* ===== Mobile Menu ===== */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-glass);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .hamburger {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all var(--transition-normal);
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all var(--transition-normal);
+        }
+
+        .hamburger::before { top: -8px; }
+        .hamburger::after { bottom: -8px; }
+
+        .mobile-menu-btn.active .hamburger {
+            background: transparent;
+        }
+
+        .mobile-menu-btn.active .hamburger::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .mobile-menu-btn.active .hamburger::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+        }
+
+        /* ===== Main Content ===== */
+        .main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            position: relative;
+            padding: 4rem 0;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: dot-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes dot-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+
+        .hero-title .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title .typing-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .typing-text::after {
+            content: '|';
+            position: absolute;
+            right: -10px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-full);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .btn-icon {
+            font-size: 1.3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 1s ease forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            perspective: 1000px;
+        }
+
+        .hero-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            animation: float-card 6s ease-in-out infinite;
+        }
+
+        .hero-card:nth-child(1) { animation-delay: 0s; }
+        .hero-card:nth-child(2) { animation-delay: -1.5s; }
+        .hero-card:nth-child(3) { animation-delay: -3s; }
+        .hero-card:nth-child(4) { animation-delay: -4.5s; }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0) rotateX(0) rotateY(0); }
+            50% { transform: translateY(-20px) rotateX(5deg) rotateY(5deg); }
+        }
+
+        .hero-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero-card-img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hero-card-meta {
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        /* ===== Tabs Section ===== */
+        .tabs-section {
+            padding: 2rem 0;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 0.5rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            width: fit-content;
+            margin: 0 auto 2rem;
+        }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .tab-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active::before {
+            opacity: 1;
+        }
+
+        .tab-btn.active {
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ===== Categories ===== */
+        .categories-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 0.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--transition-normal);
+        }
+
+        .category-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .category-chip.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ===== Section Header ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title .icon {
+            font-size: 2rem;
+        }
+
+        .section-title .text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .view-all-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .view-all-btn:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* ===== Loading ===== */
+        .loading-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+        }
+
+        .loading-container.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .loading-spinner::before,
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .loading-spinner::before {
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner::after {
+            border-bottom-color: var(--secondary);
+            animation: spin 1s linear infinite reverse;
+            inset: 8px;
+        }
+
+        /* ===== Content Grid ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ===== Card ===== */
+        .card {
+            position: relative;
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition-slow);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 0.6s ease forwards;
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card-poster {
+            position: relative;
+            aspect-ratio: 2/3;
+            overflow: hidden;
+        }
+
+        .card-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .card:hover .card-poster img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, 
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(0, 0, 0, 0.5) 50%,
+                transparent 100%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transform: scale(0);
+            transition: all var(--transition-bounce);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card:hover .play-button {
+            transform: scale(1);
+        }
+
+        .card-badges {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .card-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-rating {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.9), rgba(245, 158, 11, 0.9));
+            color: #000;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(6, 182, 212, 0.9));
+            color: white;
+        }
+
+        .badge-episodes {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .favorite-btn:hover {
+            background: var(--error);
+            transform: scale(1.2);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.3); }
+        }
+
+        .favorite-btn.active {
+            animation: heartbeat 0.6s ease;
+        }
+
+        .card-info {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card-rating {
+            color: var(--gold);
+        }
+
+        /* ===== No Results ===== */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--bg-glass);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-xl);
+        }
+
+        .no-results-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .no-results h3 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .no-results p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* ===== Modal ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 1100px;
+            width: 95%;
+            margin: 2rem auto;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transform: translateY(50px) scale(0.95);
+            transition: all var(--transition-slow);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        .modal-backdrop {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        .modal-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                var(--bg-secondary) 0%,
+                var(--bg-secondary) 5%,
+                transparent 50%);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2.5rem;
+        }
+
+        /* ===== Details ===== */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .details-poster {
+            position: relative;
+        }
+
+        .details-poster img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .details-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .details-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .details-original-title {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: -0.75rem;
+        }
+
+        .details-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .details-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .details-stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .genres-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .genre-tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .genre-tag:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+
+        .details-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== Overview ===== */
+        .overview-section {
+            background: var(--bg-glass);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            border-right: 4px solid var(--primary);
+        }
+
+        .overview-section h3 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .overview-section p {
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        /* ===== Seasons & Episodes ===== */
+        .seasons-section {
+            margin-bottom: 2rem;
+        }
+
+        .seasons-section h3 {
+            color: var(--primary-light);
+            margin-bottom: 1.25rem;
+            font-size: 1.25rem;
+        }
+
+        .seasons-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+            padding: 0.5rem;
+            background: var(--bg-glass);
+            border-radius: var(--radius-lg);
+        }
+
+        .season-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .season-tab:hover,
+        .season-tab.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .episode-btn {
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .episode-btn:hover,
+        .episode-btn.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .episode-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .episode-title {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ===== Player ===== */
+        .player-section {
+            display: none;
+            margin-bottom: 2rem;
+            background: #000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 2px solid var(--border);
+        }
+
+        .player-header {
+            padding: 1.25rem;
+            background: var(--bg-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .player-info h4 {
+            color: var(--primary-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .player-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .server-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .server-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .server-btn:hover,
+        .server-btn.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+
+        .player-container {
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .player-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .player-note {
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--bg-glass);
+        }
+
+        /* ===== Cast ===== */
+        .cast-section {
+            margin-bottom: 2rem;
+        }
+
+        .cast-section h3 {
+            color: var(--primary-light);
+            margin-bottom: 1.25rem;
+            font-size: 1.25rem;
+        }
+
+        .cast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 1rem;
+        }
+
+        .cast-card {
+            background: var(--bg-glass);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+
+        .cast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cast-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .cast-card-info {
+            padding: 0.75rem;
+        }
+
+        .cast-card-info h4 {
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .cast-card-info p {
+            font-size: 0.75rem;
+            color: var(--primary-light);
+        }
+
+        /* ===== Back to Top ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-primary);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+        }
+
+        .footer-logo span {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all var(--transition-normal);
+        }
+
+        .footer-social a:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-copyright a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        /* ===== Notification ===== */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 9999;
+            transform: translateX(150%);
+            transition: transform var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, var(--error), #dc2626);
+        }
+
+        .notification-info {
+            background: var(--gradient-primary);
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity var(--transition-fast);
+        }
+
+        .notification button:hover {
+            opacity: 1;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-cards {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                order: 3;
+                flex: none;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .nav-actions {
+                gap: 0.5rem;
+            }
+
+            .nav-btn span:not(.badge) {
+                display: none;
+            }
+
+            .nav-btn {
+                padding: 0.75rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main {
+                padding-top: 160px;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .tabs-container {
+                width: 100%;
+                border-radius: var(--radius-lg);
+            }
+
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .modal-content {
+                margin: 0;
+                width: 100%;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            .modal-header {
+                height: 280px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .details-poster img {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .details-stats,
+            .genres-list,
+            .details-buttons {
+                justify-content: center;
+            }
+
+            .details-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-cards {
+                gap: 1rem;
+            }
+
+            .content-grid {
+                gap: 0.75rem;
+            }
+
+            .card-info {
+                padding: 0.75rem;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <img src="icon-192.png" alt="SerieHub" class="preloader-logo">
+        <div class="preloader-spinner"></div>
+        <p class="preloader-text">جاري التحميل...</p>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a class="logo" href="#" onclick="resetToHome(); return false;">
+                <img src="icon-192.png" alt="SerieHub" class="logo-img">
+                <span class="logo-text">SerieHub</span>
+            </a>
+
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="ابحث عن أنمي أو مسلسل..." autocomplete="off">
+                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <button class="nav-btn" id="favoritesBtn" onclick="toggleFavorites()">
+                    <span>❤️</span>
+                    <span>المفضلة</span>
+                    <span class="badge" id="favoritesCount">0</span>
+                </button>
+                <button class="nav-btn icon-btn" onclick="toggleTheme()" title="تغيير المظهر">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="hero-badge">
+                            <span class="dot"></span>
+                            <span>أكبر مكتبة عربية للمسلسلات</span>
+                        </div>
+                        <h1 class="hero-title">
+                            اكتشف عالم<br>
+                            <span class="gradient-text">الأنمي والمسلسلات</span>
+                        </h1>
+                        <p class="hero-description">
+                            شاهد أحدث الأنمي والمسلسلات العالمية بجودة عالية مع ترجمة عربية احترافية. تجربة مشاهدة لا مثيل لها!
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="document.getElementById('contentSection').scrollIntoView({behavior: 'smooth'})">
+                                <span class="btn-icon">▶</span>
+                                ابدأ المشاهدة
+                            </button>
+                            <button class="btn btn-secondary" onclick="loadTopRated()">
+                                <span class="btn-icon">⭐</span>
+                                الأعلى تقييماً
+                            </button>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">10K+</span>
+                                <span class="stat-label">مسلسل وأنمي</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">4K</span>
+                                <span class="stat-label">جودة فائقة</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">24/7</span>
+                                <span class="stat-label">متاح دائماً</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-cards" id="heroCards">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabs Section -->
+            <section class="tabs-section" id="contentSection">
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-type="anime" onclick="switchContentType('anime')">
+                        <span>🌸</span>
+                        <span>أنمي</span>
+                    </button>
+                    <button class="tab-btn" data-type="tv" onclick="switchContentType('tv')">
+                        <span>📺</span>
+                        <span>مسلسلات</span>
+                    </button>
+                    <button class="tab-btn" data-type="korean" onclick="switchContentType('korean')">
+                        <span>🇰🇷</span>
+                        <span>كورية</span>
+                    </button>
+                    <button class="tab-btn" data-type="turkish" onclick="switchContentType('turkish')">
+                        <span>🇹🇷</span>
+                        <span>تركية</span>
+                    </button>
+                </div>
+
+                <!-- Categories -->
+                <div class="categories-wrapper">
+                    <div class="categories-scroll" id="categoriesScroll">
+                        <button class="category-chip active" data-genre="">🎬 الكل</button>
+                        <button class="category-chip" data-genre="28">💥 أكشن</button>
+                        <button class="category-chip" data-genre="35">😂 كوميديا</button>
+                        <button class="category-chip" data-genre="18">🎭 دراما</button>
+                        <button class="category-chip" data-genre="10765">🔮 خيال</button>
+                        <button class="category-chip" data-genre="9648">🔍 غموض</button>
+                        <button class="category-chip" data-genre="10749">💕 رومانسي</button>
+                        <button class="category-chip" data-genre="878">🚀 خيال علمي</button>
+                        <button class="category-chip" data-genre="80">🔪 جريمة</button>
+                        <button class="category-chip" data-genre="10759">⚡ مغامرة</button>
+                    </div>
+                </div>
+
+                <!-- Section Header -->
+                <div class="section-header">
+                    <h2 class="section-title" id="sectionTitle">
+                        <span class="icon">🔥</span>
+                        <span class="text">الأنمي الشائع</span>
+                    </h2>
+                </div>
+
+                <!-- Loading -->
+                <div class="loading-container" id="loading">
+                    <div class="loading-spinner"></div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid" id="contentGrid"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="icon-192.png" alt="SerieHub">
+                <span>SerieHub</span>
+            </div>
+            <div class="footer-links">
+                <a href="#" onclick="resetToHome(); return false;">الرئيسية</a>
+                <a href="#" onclick="loadTopRated(); return false;">الأعلى تقييماً</a>
+                <a href="#" onclick="loadOnAir(); return false;">يعرض الآن</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" title="Facebook">📘</a>
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="Instagram">📸</a>
+                <a href="#" title="Discord">💬</a>
+            </div>
+            <p class="footer-copyright">
+                © 2024 SerieHub - جميع الحقوق محفوظة<br>
+                البيانات من <a href="https://www.themoviedb.org/" target="_blank">TMDB</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img class="modal-backdrop" id="modalBackdrop" src="" alt="">
+                <div class="modal-gradient"></div>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Configuration =====
+        const CONFIG = {
+            API_KEY: '8265bd1679663a7ea12ac168da84d2e8',
+            BASE_URL: 'https://api.themoviedb.org/3',
+            IMG_URL: 'https://image.tmdb.org/t/p',
+            LANG: 'ar'
+        };
+
+        // ===== Servers =====
+        const SERVERS = [
+            { name: '🎬 سيرفر 1', url: (id, s, e) => `https://vidsrc.xyz/embed/tv/${id}/${s}-${e}` },
+            { name: '🎥 سيرفر 2', url: (id, s, e) => `https://vidsrc.me/embed/tv?tmdb=${id}&season=${s}&episode=${e}` },
+            { name: '📺 سيرفر 3', url: (id, s, e) => `https://vidsrc.to/embed/tv/${id}/${s}/${e}` },
+            { name: '🎞️ سيرفر 4', url: (id, s, e) => `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}` },
+            { name: '🎦 سيرفر 5', url: (id, s, e) => `https://autoembed.co/tv/tmdb/${id}-${s}-${e}` }
+        ];
+
+        // ===== State =====
+        const state = {
+            currentType: 'anime',
+            currentGenre: '',
+            currentPage: 1,
+            searchQuery: '',
+            isLoading: false,
+            hasMore: true,
+            favorites: JSON.parse(localStorage.getItem('serieHubFavorites')) || [],
+            showFavorites: false,
+            theme: localStorage.getItem('serieHubTheme') || 'dark',
+            currentShow: null,
+            currentSeason: 1,
+            currentEpisode: 1,
+            currentServer: 0
+        };
+
+        // ===== Elements =====
+        const $ = id => document.getElementById(id);
+        const $$ = sel => document.querySelectorAll(sel);
+
+        // ===== Initialize =====
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            applyTheme();
+            updateFavoritesCount();
+            loadHeroCards();
+            loadContent();
+            setupEventListeners();
+            setupScrollEffects();
+            
+            // Hide preloader
+            setTimeout(() => {
+                $('preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // ===== Particles =====
+        function createParticles() {
+            const container = $('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 20) + 's';
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+        }
+
+        // ===== Event Listeners =====
+        function setupEventListeners() {
+            $('searchInput').addEventListener('keypress', e => {
+                if (e.key === 'Enter') performSearch();
+            });
+
+            $$('.category-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    $$('.category-chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    state.currentGenre = chip.dataset.genre;
+                    state.currentPage = 1;
+                    loadContent();
+                });
+            });
+
+            $('modal').addEventListener('click', e => {
+                if (e.target === $('modal')) closeModal();
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeModal();
+            });
+        }
+
+        // ===== Scroll Effects =====
+        function setupScrollEffects() {
+            window.addEventListener('scroll', () => {
+                const header = $('header');
+                const backToTop = $('backToTop');
+                
+                header.classList.toggle('scrolled', window.scrollY > 50);
+                backToTop.classList.toggle('visible', window.scrollY > 500);
+
+                // Infinite scroll
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+                    if (!state.isLoading && state.hasMore && !state.showFavorites) {
+                        state.currentPage++;
+                        loadContent(true);
+                    }
+                }
+            });
+        }
+
+        // ===== Theme =====
+        function applyTheme() {
+            document.documentElement.setAttribute('data-theme', state.theme);
+            $('themeIcon').textContent = state.theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('serieHubTheme', state.theme);
+            applyTheme();
+            showNotification(`تم التغيير للوضع ${state.theme === 'light' ? 'النهاري' : 'الليلي'}`, 'info');
+        }
+
+        // ===== Utilities =====
+        function sanitize(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function getImage(path, size = 'w500') {
+            return path ? `${CONFIG.IMG_URL}/${size}${path}` : 'https://via.placeholder.com/500x750/1a1a3e/ffffff?text=No+Image';
+        }
+
+        function generateStars(rating) {
+            if (!rating) return '☆☆☆☆☆';
+            const count = Math.round(rating / 2);
+            return '★'.repeat(Math.min(count, 5)) + '☆'.repeat(5 - Math.min(count, 5));
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== Notifications =====
+        function showNotification(message, type = 'info') {
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()">×</button>`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 10);
+            setTimeout(() => notification.remove(), 4000);
+        }
+
+        // ===== Loading =====
+        function showLoading() {
+            state.isLoading = true;
+            $('loading').classList.add('active');
+        }
+
+        function hideLoading() {
+            state.isLoading = false;
+            $('loading').classList.remove('active');
+        }
+
+        // ===== Hero Cards =====
+        async function loadHeroCards() {
+            try {
+                const url = `${CONFIG.BASE_URL}/trending/tv/week?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                const container = $('heroCards');
+                container.innerHTML = data.results.slice(0, 4).map(item => `
+                    <div class="hero-card" onclick="openModal(${item.id})">
+                        <img class="hero-card-img" src="${getImage(item.poster_path, 'w300')}" alt="${sanitize(item.name)}">
+                        <h4 class="hero-card-title">${sanitize(item.name)}</h4>
+                        <span class="hero-card-meta">⭐ ${item.vote_average?.toFixed(1) || 'N/A'}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading hero cards:', error);
+            }
+        }
+
+        // ===== Content Type =====
+        function switchContentType(type) {
+            state.currentType = type;
+            state.currentPage = 1;
+            state.searchQuery = '';
+            state.showFavorites = false;
+            $('searchInput').value = '';
+            $('favoritesBtn').classList.remove('active');
+
+            $$('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === type);
+            });
+
+            const titles = {
+                'anime': '🌸 الأنمي الشائع',
+                'tv': '📺 المسلسلات الشائعة',
+                'korean': '🇰🇷 الدراما الكورية',
+                'turkish': '🇹🇷 المسلسلات التركية'
+            };
+
+            updateSectionTitle(titles[type] || '🔥 المحتوى الشائع');
+            loadContent();
+        }
+
+        function updateSectionTitle(title) {
+            const parts = title.split(' ');
+            $('sectionTitle').innerHTML = `
+                <span class="icon">${parts[0]}</span>
+                <span class="text">${parts.slice(1).join(' ')}</span>
+            `;
+        }
+
+        // ===== Search =====
+        function performSearch() {
+            const query = $('searchInput').value.trim();
+            if (!query) return;
+
+            state.searchQuery = query;
+            state.currentPage = 1;
+            state.currentGenre = '';
+            state.showFavorites = false;
+            $('favoritesBtn').classList.remove('active');
+            $$('.category-chip').forEach(c => c.classList.remove('active'));
+
+            updateSectionTitle(`🔍 نتائج: "${query}"`);
+            loadContent();
+        }
+
+        function resetToHome() {
+            state.currentType = 'anime';
+            state.currentGenre = '';
+            state.currentPage = 1;
+            state.searchQuery = '';
+            state.showFavorites = false;
+            state.hasMore = true;
+
+            $('searchInput').value = '';
+            $('favoritesBtn').classList.remove('active');
+            
+            $$('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.type === 'anime'));
+            $$('.category-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.genre === ''));
+
+            updateSectionTitle('🌸 الأنمي الشائع');
+            loadContent();
+            scrollToTop();
+        }
+
+        // ===== Favorites =====
+        function updateFavoritesCount() {
+            $('favoritesCount').textContent = state.favorites.length;
+        }
+
+        function toggleFavorites() {
+            state.showFavorites = !state.showFavorites;
+            $('favoritesBtn').classList.toggle('active', state.showFavorites);
+
+            if (state.showFavorites) {
+                updateSectionTitle('❤️ المفضلة');
+                loadFavorites();
+            } else {
+                resetToHome();
+            }
+        }
+
+        function toggleFavorite(id, e) {
+            if (e) e.stopPropagation();
+
+            const index = state.favorites.indexOf(id);
+            if (index > -1) {
+                state.favorites.splice(index, 1);
+                showNotification('تم الإزالة من المفضلة', 'info');
+            } else {
+                state.favorites.push(id);
+                showNotification('تم الإضافة للمفضلة ❤️', 'success');
+            }
+
+            localStorage.setItem('serieHubFavorites', JSON.stringify(state.favorites));
+            updateFavoritesCount();
+
+            const btn = document.querySelector(`.card[data-id="${id}"] .favorite-btn`);
+            if (btn) {
+                btn.classList.toggle('active');
+                btn.textContent = state.favorites.includes(id) ? '❤️' : '🤍';
+            }
+        }
+
+        async function loadFavorites() {
+            if (state.favorites.length === 0) {
+                $('contentGrid').innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">💔</div>
+                        <h3>لا توجد عناصر في المفضلة</h3>
+                        <p>أضف مسلسلات للمفضلة بالضغط على ❤️</p>
+                        <button class="btn btn-primary" onclick="resetToHome()">استكشف المحتوى</button>
+                    </div>
+                `;
+                return;
+            }
+
+            showLoading();
+            $('contentGrid').innerHTML = '';
+
+            try {
+                const promises = state.favorites.map(id =>
+                    fetch(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`)
+                        .then(r => r.json())
+                        .catch(() => null)
+                );
+
+                const results = await Promise.all(promises);
+                results.filter(item => item?.id).forEach((item, i) => createCard(item, i));
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // ===== Load Content =====
+        async function loadContent(append = false) {
+            if (state.isLoading) return;
+
+            showLoading();
+            if (!append) $('contentGrid').innerHTML = '';
+
+            try {
+                let url = '';
+
+                if (state.searchQuery) {
+                    url = `${CONFIG.BASE_URL}/search/tv?api_key=${CONFIG.API_KEY}&query=${encodeURIComponent(state.searchQuery)}&page=${state.currentPage}&language=${CONFIG.LANG}`;
+                } else {
+                    const typeConfigs = {
+                        'anime': `with_genres=16&with_original_language=ja&sort_by=popularity.desc`,
+                        'tv': `sort_by=popularity.desc`,
+                        'korean': `with_original_language=ko&sort_by=popularity.desc`,
+                        'turkish': `with_original_language=tr&sort_by=popularity.desc`
+                    };
+
+                    let params = typeConfigs[state.currentType] || typeConfigs['tv'];
+                    if (state.currentGenre) params += `&with_genres=${state.currentGenre}`;
+
+                    url = `${CONFIG.BASE_URL}/discover/tv?api_key=${CONFIG.API_KEY}&${params}&page=${state.currentPage}&language=${CONFIG.LANG}`;
+                }
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                state.hasMore = state.currentPage < data.total_pages;
+
+                if (data.results?.length > 0) {
+                    data.results.forEach((item, i) => createCard(item, append ? i + 20 : i));
+                } else if (!append) {
+                    $('contentGrid').innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon">🔍</div>
+                            <h3>لم يتم العثور على نتائج</h3>
+                            <p>جرب البحث بكلمات مختلفة</p>
+                            <button class="btn btn-primary" onclick="resetToHome()">العودة للرئيسية</button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function loadTopRated() {
+            state.currentPage = 1;
+            state.searchQuery = '';
+            state.showFavorites = false;
+            $('favoritesBtn').classList.remove('active');
+
+            updateSectionTitle('⭐ الأعلى تقييماً');
+            showLoading();
+            $('contentGrid').innerHTML = '';
+
+            try {
+                const url = `${CONFIG.BASE_URL}/tv/top_rated?api_key=${CONFIG.API_KEY}&page=1&language=${CONFIG.LANG}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                data.results.forEach((item, i) => createCard(item, i));
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function loadOnAir() {
+            state.currentPage = 1;
+            state.searchQuery = '';
+            state.showFavorites = false;
+            $('favoritesBtn').classList.remove('active');
+
+            updateSectionTitle('📺 يعرض الآن');
+            showLoading();
+            $('contentGrid').innerHTML = '';
+
+            try {
+                const url = `${CONFIG.BASE_URL}/tv/on_the_air?api_key=${CONFIG.API_KEY}&page=1&language=${CONFIG.LANG}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                data.results.forEach((item, i) => createCard(item, i));
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // ===== Create Card =====
+        function createCard(item, index = 0) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.animationDelay = `${index * 0.05}s`;
+            card.dataset.id = item.id;
+            card.onclick = () => openModal(item.id);
+
+            const rating = item.vote_average?.toFixed(1) || 'N/A';
+            const year = item.first_air_date ? new Date(item.first_air_date).getFullYear() : '----';
+            const isFav = state.favorites.includes(item.id);
+            const isNew = item.first_air_date && (new Date() - new Date(item.first_air_date)) / (1000*60*60*24) <= 60;
+            const episodes = item.number_of_episodes || '?';
+
+            card.innerHTML = `
+                <div class="card-poster">
+                    <img src="${getImage(item.poster_path)}" alt="${sanitize(item.name)}" loading="lazy">
+                    <div class="card-overlay">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-badges">
+                        <span class="card-badge badge-rating">⭐ ${rating}</span>
+                        ${isNew ? '<span class="card-badge badge-new">جديد</span>' : ''}
+                        <span class="card-badge badge-episodes">📺 ${episodes}</span>
+                    </div>
+                    <button class="favorite-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(${item.id}, event)">
+                        ${isFav ? '❤️' : '🤍'}
+                    </button>
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">${sanitize(item.name)}</h3>
+                    <div class="card-meta">
+                        <span>📅 ${year}</span>
+                        <span class="card-rating">${generateStars(item.vote_average)}</span>
+                    </div>
+                </div>
+            `;
+
+            $('contentGrid').appendChild(card);
+        }
+
+        // ===== Modal =====
+        async function openModal(id) {
+            showLoading();
+
+            try {
+                const [show, credits] = await Promise.all([
+                    fetch(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`).then(r => r.json()),
+                    fetch(`${CONFIG.BASE_URL}/tv/${id}/credits?api_key=${CONFIG.API_KEY}`).then(r => r.json())
+                ]);
+
+                if (!show.overview) {
+                    const enShow = await fetch(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=en`).then(r => r.json());
+                    show.overview = enShow.overview;
+                }
+
+                state.currentShow = show;
+                state.currentSeason = 1;
+                state.currentEpisode = 1;
+
+                displayModal(show, credits);
+                $('modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('خطأ في تحميل التفاصيل', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function closeModal() {
+            $('modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            const iframe = $('modalBody').querySelector('iframe');
+            if (iframe) iframe.src = '';
+        }
+
+        function displayModal(show, credits) {
+            $('modalBackdrop').src = getImage(show.backdrop_path || show.poster_path, 'w1280');
+
+            const rating = show.vote_average?.toFixed(1) || 'N/A';
+            const year = show.first_air_date ? new Date(show.first_air_date).getFullYear() : '----';
+            const cast = credits.cast?.slice(0, 6) || [];
+            const isFav = state.favorites.includes(show.id);
+            const seasons = show.seasons?.filter(s => s.season_number > 0) || [];
+
+            $('modalBody').innerHTML = `
+                <div class="details-grid">
+                    <div class="details-poster">
+                        <img src="${getImage(show.poster_path)}" alt="${sanitize(show.name)}">
+                    </div>
+                    <div class="details-info">
+                        <h1 class="details-title">${sanitize(show.name)}</h1>
+                        ${show.original_name !== show.name ? `<p class="details-original-title">${sanitize(show.original_name)}</p>` : ''}
+                        
+                        <div class="details-stats">
+                            <div class="details-stat">
+                                <span class="details-stat-label">التقييم</span>
+                                <span class="details-stat-value">${generateStars(show.vote_average)} ${rating}</span>
+                            </div>
+                            <div class="details-stat">
+                                <span class="details-stat-label">السنة</span>
+                                <span class="details-stat-value">${year}</span>
+                            </div>
+                            <div class="details-stat">
+                                <span class="details-stat-label">المواسم</span>
+                                <span class="details-stat-value">${show.number_of_seasons || 1}</span>
+                            </div>
+                            <div class="details-stat">
+                                <span class="details-stat-label">الحلقات</span>
+                                <span class="details-stat-value">${show.number_of_episodes || '?'}</span>
+                            </div>
+                        </div>
+
+                        <div class="genres-list">
+                            ${show.genres?.map(g => `<span class="genre-tag">${g.name}</span>`).join('') || ''}
+                        </div>
+
+                        <div class="details-buttons">
+                            <button class="btn btn-primary" onclick="showPlayer()">
+                                <span class="btn-icon">▶</span>
+                                مشاهدة الآن
+                            </button>
+                            <button class="btn btn-secondary ${isFav ? 'active' : ''}" onclick="toggleFavorite(${show.id}); this.innerHTML = state.favorites.includes(${show.id}) ? '❤️ في المفضلة' : '🤍 أضف للمفضلة';">
+                                ${isFav ? '❤️ في المفضلة' : '🤍 أضف للمفضلة'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-section">
+                    <h3>📝 القصة</h3>
+                    <p>${sanitize(show.overview) || 'لا يوجد وصف متاح.'}</p>
+                </div>
+
+                ${seasons.length > 0 ? `
+                <div class="seasons-section">
+                    <h3>📺 المواسم والحلقات</h3>
+                    <div class="seasons-tabs">
+                        ${seasons.map(s => `
+                            <button class="season-tab ${s.season_number === 1 ? 'active' : ''}" 
+                                    onclick="loadEpisodes(${show.id}, ${s.season_number})">
+                                الموسم ${s.season_number}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="episodes-grid" id="episodesGrid">
+                        <p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">جاري التحميل...</p>
+                    </div>
+                </div>
+                ` : ''}
+
+                <div class="player-section" id="playerSection">
+                    <div class="player-header">
+                        <div class="player-info">
+                            <h4 id="playerTitle">مشاهدة ${sanitize(show.name)}</h4>
+                            <p id="playerSubtitle">الموسم 1 - الحلقة 1</p>
+                        </div>
+                        <div class="server-buttons">
+                            ${SERVERS.map((s, i) => `
+                                <button class="server-btn ${i === 0 ? 'active' : ''}" onclick="changeServer(${i})">${s.name}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="player-container" id="playerContainer"></div>
+                    <p class="player-note">💡 إذا لم يعمل السيرفر، جرب سيرفر آخر</p>
+                </div>
+
+                ${cast.length > 0 ? `
+                <div class="cast-section">
+                    <h3>🎭 طاقم التمثيل</h3>
+                    <div class="cast-grid">
+                        ${cast.map(actor => `
+                            <div class="cast-card">
+                                <img src="${getImage(actor.profile_path, 'w185')}" alt="${sanitize(actor.name)}">
+                                <div class="cast-card-info">
+                                    <h4>${sanitize(actor.name)}</h4>
+                                    <p>${sanitize(actor.character)}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+            `;
+
+            if (seasons.length > 0) loadEpisodes(show.id, 1);
+        }
+
+        async function loadEpisodes(showId, seasonNumber) {
+            state.currentSeason = seasonNumber;
+
+            $$('.season-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.textContent.includes(seasonNumber));
+            });
+
+            const grid = $('episodesGrid');
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">جاري التحميل...</p>';
+
+            try {
+                const response = await fetch(`${CONFIG.BASE_URL}/tv/${showId}/season/${seasonNumber}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`);
+                const data = await response.json();
+
+                if (data.episodes?.length > 0) {
+                    grid.innerHTML = data.episodes.map(ep => `
+                        <button class="episode-btn ${ep.episode_number === state.currentEpisode ? 'active' : ''}" 
+                                onclick="selectEpisode(${ep.episode_number})">
+                            <span class="episode-number">${ep.episode_number}</span>
+                            <span class="episode-title">${sanitize(ep.name) || `الحلقة ${ep.episode_number}`}</span>
+                        </button>
+                    `).join('');
+                } else {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">لا توجد حلقات</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function selectEpisode(episodeNumber) {
+            state.currentEpisode = episodeNumber;
+            $$('.episode-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.querySelector('.episode-number').textContent == episodeNumber);
+            });
+            if ($('playerSection').style.display === 'block') updatePlayer();
+        }
+
+        function showPlayer() {
+            const playerSection = $('playerSection');
+            playerSection.style.display = 'block';
+            updatePlayer();
+            playerSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updatePlayer() {
+            const show = state.currentShow;
+            if (!show) return;
+
+            $('playerSubtitle').textContent = `الموسم ${state.currentSeason} - الحلقة ${state.currentEpisode}`;
+            const server = SERVERS[state.currentServer];
+            const url = server.url(show.id, state.currentSeason, state.currentEpisode);
+            $('playerContainer').innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; fullscreen"></iframe>`;
+        }
+
+        function changeServer(index) {
+            state.currentServer = index;
+            $$('.server-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
+            updatePlayer();
+        }
+    </script>
+</body>
+</html>
