@@ -4,17 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SerieHub - عالم المسلسلات والأنمي</title>
-    <meta name="description" content="SerieHub - أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="SerieHub - عالم المسلسلات والأنمي">
+    <meta name="description" content="SerieHub - أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية مع ترجمة عربية احترافية. اكتشف آلاف المسلسلات والأنمي.">
+    <meta name="keywords" content="أنمي, مسلسلات, مشاهدة اون لاين, دراما كورية, مسلسلات تركية, anime, series, streaming, مترجم, عربي">
+    <meta name="author" content="SerieHub">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Arabic">
     <meta name="theme-color" content="#6366f1">
     
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seriehub.com/">
+    <meta property="og:title" content="SerieHub - عالم المسلسلات والأنمي">
+    <meta property="og:description" content="أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية مع ترجمة عربية احترافية">
+    <meta property="og:image" content="https://seriehub.com/og-image.jpg">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:site_name" content="SerieHub">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://seriehub.com/">
+    <meta name="twitter:title" content="SerieHub - عالم المسلسلات والأنمي">
+    <meta name="twitter:description" content="أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية">
+    <meta name="twitter:image" content="https://seriehub.com/og-image.jpg">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SerieHub">
+    
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     
-    <!-- Fonts -->
+    <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.themoviedb.org">
+    <link rel="preconnect" href="https://image.tmdb.org">
+    <link rel="dns-prefetch" href="https://api.themoviedb.org">
+    <link rel="dns-prefetch" href="https://image.tmdb.org">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SerieHub",
+        "alternateName": ["سيري هب", "SerieHub Arabic"],
+        "url": "https://seriehub.com",
+        "description": "أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية",
+        "inLanguage": "ar",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://seriehub.com/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SerieHub",
+        "url": "https://seriehub.com",
+        "logo": "https://seriehub.com/icon-512.png",
+        "sameAs": [
+            "https://facebook.com/seriehub",
+            "https://twitter.com/seriehub",
+            "https://instagram.com/seriehub"
+        ]
+    }
+    </script>
 
     <style>
         /* ===== CSS Variables ===== */
@@ -96,6 +171,30 @@
             overflow-x: hidden;
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Skip Link for Accessibility ===== */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            z-index: 10000;
+            transition: top 0.3s;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ===== Focus Styles for Accessibility ===== */
+        *:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         /* ===== Custom Scrollbar ===== */
@@ -117,6 +216,30 @@
             color: white;
         }
 
+        /* ===== Offline Banner ===== */
+        .offline-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--error), #dc2626);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            z-index: 10001;
+            transform: translateY(-100%);
+            transition: transform var(--transition-normal);
+            font-weight: 600;
+        }
+
+        .offline-banner.show {
+            transform: translateY(0);
+        }
+
+        .offline-banner .icon {
+            margin-left: 8px;
+        }
+
         /* ===== Preloader ===== */
         .preloader {
             position: fixed;
@@ -133,6 +256,7 @@
         .preloader.hidden {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
         }
 
         .preloader-logo {
@@ -199,6 +323,7 @@
             z-index: -1;
             overflow: hidden;
             background: var(--gradient-dark);
+            will-change: transform;
         }
 
         .bg-animation::before {
@@ -231,6 +356,7 @@
             filter: blur(60px);
             opacity: 0.4;
             animation: float-shape 20s ease-in-out infinite;
+            will-change: transform;
         }
 
         .shape-1 {
@@ -282,6 +408,7 @@
             background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             animation: float-particle linear infinite;
+            will-change: transform, opacity;
         }
 
         @keyframes float-particle {
@@ -294,6 +421,21 @@
             100% {
                 transform: translateY(-100vh) rotate(720deg);
                 opacity: 0;
+            }
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .bg-animation::before,
+            .shape,
+            .particle,
+            .hero-card {
+                animation: none !important;
+            }
+            
+            * {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
             }
         }
 
@@ -450,6 +592,62 @@
             box-shadow: var(--shadow-glow);
         }
 
+        /* Search Suggestions */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .search-suggestions.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: var(--bg-glass);
+        }
+
+        .suggestion-item img {
+            width: 40px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+
+        .suggestion-item-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .suggestion-item-info span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
         /* ===== Nav Actions ===== */
         .nav-actions {
             display: flex;
@@ -484,15 +682,15 @@
             transition: opacity var(--transition-normal);
         }
 
-        .nav-btn:hover::before,
-        .nav-btn.active::before {
-            opacity: 1;
-        }
-
         .nav-btn span,
         .nav-btn .badge {
             position: relative;
             z-index: 1;
+        }
+
+        .nav-btn:hover::before,
+        .nav-btn.active::before {
+            opacity: 1;
         }
 
         .nav-btn:hover {
@@ -572,6 +770,88 @@
         .mobile-menu-btn.active .hamburger::after {
             bottom: 0;
             transform: rotate(-45deg);
+        }
+
+        /* Mobile Menu Drawer */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            z-index: 1001;
+            padding: 2rem;
+            transition: right var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .mobile-menu-overlay.show {
+            opacity: 1;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-menu-close {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-menu-links button {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .mobile-menu-links button:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
         }
 
         /* ===== Main Content ===== */
@@ -808,6 +1088,7 @@
             backdrop-filter: blur(10px);
             transition: all var(--transition-normal);
             animation: float-card 6s ease-in-out infinite;
+            cursor: pointer;
         }
 
         .hero-card:nth-child(1) { animation-delay: 0s; }
@@ -1013,6 +1294,8 @@
             justify-content: center;
             align-items: center;
             padding: 4rem;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .loading-container.active {
@@ -1043,6 +1326,11 @@
             border-bottom-color: var(--secondary);
             animation: spin 1s linear infinite reverse;
             inset: 8px;
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         /* ===== Content Grid ===== */
@@ -1795,6 +2083,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
+            text-decoration: none;
             transition: all var(--transition-normal);
         }
 
@@ -1831,6 +2120,7 @@
             transform: translateX(150%);
             transition: transform var(--transition-normal);
             box-shadow: var(--shadow-lg);
+            max-width: 350px;
         }
 
         .notification.show {
@@ -1845,8 +2135,16 @@
             background: linear-gradient(135deg, var(--error), #dc2626);
         }
 
+        .notification-warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+        }
+
         .notification-info {
             background: var(--gradient-primary);
+        }
+
+        .notification-content {
+            flex: 1;
         }
 
         .notification button {
@@ -1857,6 +2155,8 @@
             cursor: pointer;
             opacity: 0.8;
             transition: opacity var(--transition-fast);
+            padding: 0;
+            line-height: 1;
         }
 
         .notification button:hover {
@@ -1921,6 +2221,10 @@
             }
 
             .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
                 display: block;
             }
 
@@ -1989,6 +2293,13 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .notification {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                max-width: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -2016,15 +2327,24 @@
 </head>
 
 <body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+
+    <!-- Offline Banner -->
+    <div class="offline-banner" id="offlineBanner" role="alert" aria-live="assertive">
+        <span class="icon">⚠️</span>
+        لا يوجد اتصال بالإنترنت - بعض الميزات قد لا تعمل
+    </div>
+
     <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <img src="icon-192.png" alt="SerieHub" class="preloader-logo">
-        <div class="preloader-spinner"></div>
+    <div class="preloader" id="preloader" role="status" aria-label="جاري تحميل الصفحة">
+        <img src="icon-192.png" alt="SerieHub Logo" class="preloader-logo">
+        <div class="preloader-spinner" aria-hidden="true"></div>
         <p class="preloader-text">جاري التحميل...</p>
     </div>
 
     <!-- Animated Background -->
-    <div class="bg-animation">
+    <div class="bg-animation" aria-hidden="true">
         <div class="floating-shapes">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
@@ -2033,48 +2353,101 @@
     </div>
 
     <!-- Particles -->
-    <div class="particles" id="particles"></div>
+    <div class="particles" id="particles" aria-hidden="true"></div>
 
     <!-- Header -->
-    <header class="header" id="header">
-        <nav class="nav">
-            <a class="logo" href="#" onclick="resetToHome(); return false;">
-                <img src="icon-192.png" alt="SerieHub" class="logo-img">
+    <header class="header" id="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="التنقل الرئيسي">
+            <a class="logo" href="#" onclick="resetToHome(); return false;" aria-label="SerieHub - الصفحة الرئيسية">
+                <img src="icon-192.png" alt="" class="logo-img" aria-hidden="true">
                 <span class="logo-text">SerieHub</span>
             </a>
 
             <div class="search-wrapper">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="ابحث عن أنمي أو مسلسل..." autocomplete="off">
-                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                <div class="search-bar" role="search">
+                    <input 
+                        type="search" 
+                        id="searchInput" 
+                        placeholder="ابحث عن أنمي أو مسلسل..." 
+                        autocomplete="off"
+                        aria-label="البحث عن محتوى"
+                        aria-describedby="searchHint"
+                        aria-controls="searchSuggestions"
+                        aria-expanded="false"
+                    >
+                    <button class="search-btn" onclick="performSearch()" aria-label="بحث">
+                        <span aria-hidden="true">🔍</span>
+                    </button>
                 </div>
+                <span id="searchHint" class="visually-hidden">اكتب للبحث، ثم اضغط Enter</span>
+                <div class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="اقتراحات البحث"></div>
             </div>
 
             <div class="nav-actions">
-                <button class="nav-btn" id="favoritesBtn" onclick="toggleFavorites()">
-                    <span>❤️</span>
+                <button 
+                    class="nav-btn" 
+                    id="favoritesBtn" 
+                    onclick="toggleFavorites()"
+                    aria-label="المفضلة"
+                    aria-pressed="false"
+                >
+                    <span aria-hidden="true">❤️</span>
                     <span>المفضلة</span>
-                    <span class="badge" id="favoritesCount">0</span>
+                    <span class="badge" id="favoritesCount" aria-live="polite" aria-label="عدد العناصر في المفضلة">0</span>
                 </button>
-                <button class="nav-btn icon-btn" onclick="toggleTheme()" title="تغيير المظهر">
-                    <span id="themeIcon">🌙</span>
+                <button 
+                    class="nav-btn icon-btn" 
+                    onclick="toggleTheme()" 
+                    aria-label="تغيير المظهر"
+                    id="themeBtn"
+                >
+                    <span id="themeIcon" aria-hidden="true">🌙</span>
+                </button>
+                <button 
+                    class="mobile-menu-btn" 
+                    id="mobileMenuBtn"
+                    onclick="toggleMobileMenu()"
+                    aria-label="فتح القائمة"
+                    aria-expanded="false"
+                    aria-controls="mobileMenu"
+                >
+                    <span class="hamburger" aria-hidden="true"></span>
                 </button>
             </div>
         </nav>
     </header>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Mobile Menu -->
+    <aside class="mobile-menu" id="mobileMenu" role="dialog" aria-label="القائمة الجانبية" aria-hidden="true">
+        <div class="mobile-menu-header">
+            <span class="logo-text">SerieHub</span>
+            <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="إغلاق القائمة">✕</button>
+        </div>
+        <nav class="mobile-menu-links" role="navigation">
+            <button onclick="switchContentType('anime'); closeMobileMenu();">🌸 أنمي</button>
+            <button onclick="switchContentType('tv'); closeMobileMenu();">📺 مسلسلات</button>
+            <button onclick="switchContentType('korean'); closeMobileMenu();">🇰🇷 كورية</button>
+            <button onclick="switchContentType('turkish'); closeMobileMenu();">🇹🇷 تركية</button>
+            <button onclick="loadTopRated(); closeMobileMenu();">⭐ الأعلى تقييماً</button>
+            <button onclick="loadOnAir(); closeMobileMenu();">📺 يعرض الآن</button>
+        </nav>
+    </aside>
+
     <!-- Main Content -->
-    <main class="main">
+    <main class="main" id="main-content" role="main">
         <div class="container">
             <!-- Hero Section -->
-            <section class="hero">
+            <section class="hero" aria-labelledby="hero-title">
                 <div class="hero-content">
                     <div class="hero-text">
                         <div class="hero-badge">
-                            <span class="dot"></span>
+                            <span class="dot" aria-hidden="true"></span>
                             <span>أكبر مكتبة عربية للمسلسلات</span>
                         </div>
-                        <h1 class="hero-title">
+                        <h1 class="hero-title" id="hero-title">
                             اكتشف عالم<br>
                             <span class="gradient-text">الأنمي والمسلسلات</span>
                         </h1>
@@ -2083,30 +2456,30 @@
                         </p>
                         <div class="hero-buttons">
                             <button class="btn btn-primary" onclick="document.getElementById('contentSection').scrollIntoView({behavior: 'smooth'})">
-                                <span class="btn-icon">▶</span>
+                                <span class="btn-icon" aria-hidden="true">▶</span>
                                 ابدأ المشاهدة
                             </button>
                             <button class="btn btn-secondary" onclick="loadTopRated()">
-                                <span class="btn-icon">⭐</span>
+                                <span class="btn-icon" aria-hidden="true">⭐</span>
                                 الأعلى تقييماً
                             </button>
                         </div>
-                        <div class="hero-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">10K+</span>
+                        <div class="hero-stats" role="list" aria-label="إحصائيات الموقع">
+                            <div class="stat-item" role="listitem">
+                                <span class="stat-value" aria-label="أكثر من عشرة آلاف">10K+</span>
                                 <span class="stat-label">مسلسل وأنمي</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item" role="listitem">
                                 <span class="stat-value">4K</span>
                                 <span class="stat-label">جودة فائقة</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item" role="listitem">
                                 <span class="stat-value">24/7</span>
                                 <span class="stat-label">متاح دائماً</span>
                             </div>
                         </div>
                     </div>
-                    <div class="hero-visual">
+                    <div class="hero-visual" aria-hidden="true">
                         <div class="hero-cards" id="heroCards">
                             <!-- Will be populated by JS -->
                         </div>
@@ -2115,108 +2488,131 @@
             </section>
 
             <!-- Tabs Section -->
-            <section class="tabs-section" id="contentSection">
-                <div class="tabs-container">
-                    <button class="tab-btn active" data-type="anime" onclick="switchContentType('anime')">
-                        <span>🌸</span>
+            <section class="tabs-section" id="contentSection" aria-labelledby="sectionTitle">
+                <div class="tabs-container" role="tablist" aria-label="تصنيفات المحتوى">
+                    <button class="tab-btn active" data-type="anime" onclick="switchContentType('anime')" role="tab" aria-selected="true" aria-controls="contentGrid">
+                        <span aria-hidden="true">🌸</span>
                         <span>أنمي</span>
                     </button>
-                    <button class="tab-btn" data-type="tv" onclick="switchContentType('tv')">
-                        <span>📺</span>
+                    <button class="tab-btn" data-type="tv" onclick="switchContentType('tv')" role="tab" aria-selected="false" aria-controls="contentGrid">
+                        <span aria-hidden="true">📺</span>
                         <span>مسلسلات</span>
                     </button>
-                    <button class="tab-btn" data-type="korean" onclick="switchContentType('korean')">
-                        <span>🇰🇷</span>
+                    <button class="tab-btn" data-type="korean" onclick="switchContentType('korean')" role="tab" aria-selected="false" aria-controls="contentGrid">
+                        <span aria-hidden="true">🇰🇷</span>
                         <span>كورية</span>
                     </button>
-                    <button class="tab-btn" data-type="turkish" onclick="switchContentType('turkish')">
-                        <span>🇹🇷</span>
+                    <button class="tab-btn" data-type="turkish" onclick="switchContentType('turkish')" role="tab" aria-selected="false" aria-controls="contentGrid">
+                        <span aria-hidden="true">🇹🇷</span>
                         <span>تركية</span>
                     </button>
                 </div>
 
                 <!-- Categories -->
                 <div class="categories-wrapper">
-                    <div class="categories-scroll" id="categoriesScroll">
-                        <button class="category-chip active" data-genre="">🎬 الكل</button>
-                        <button class="category-chip" data-genre="28">💥 أكشن</button>
-                        <button class="category-chip" data-genre="35">😂 كوميديا</button>
-                        <button class="category-chip" data-genre="18">🎭 دراما</button>
-                        <button class="category-chip" data-genre="10765">🔮 خيال</button>
-                        <button class="category-chip" data-genre="9648">🔍 غموض</button>
-                        <button class="category-chip" data-genre="10749">💕 رومانسي</button>
-                        <button class="category-chip" data-genre="878">🚀 خيال علمي</button>
-                        <button class="category-chip" data-genre="80">🔪 جريمة</button>
-                        <button class="category-chip" data-genre="10759">⚡ مغامرة</button>
+                    <div class="categories-scroll" id="categoriesScroll" role="tablist" aria-label="تصنيفات فرعية">
+                        <button class="category-chip active" data-genre="" role="tab" aria-selected="true">🎬 الكل</button>
+                        <button class="category-chip" data-genre="28" role="tab" aria-selected="false">💥 أكشن</button>
+                        <button class="category-chip" data-genre="35" role="tab" aria-selected="false">😂 كوميديا</button>
+                        <button class="category-chip" data-genre="18" role="tab" aria-selected="false">🎭 دراما</button>
+                        <button class="category-chip" data-genre="10765" role="tab" aria-selected="false">🔮 خيال</button>
+                        <button class="category-chip" data-genre="9648" role="tab" aria-selected="false">🔍 غموض</button>
+                        <button class="category-chip" data-genre="10749" role="tab" aria-selected="false">💕 رومانسي</button>
+                        <button class="category-chip" data-genre="878" role="tab" aria-selected="false">🚀 خيال علمي</button>
+                        <button class="category-chip" data-genre="80" role="tab" aria-selected="false">🔪 جريمة</button>
+                        <button class="category-chip" data-genre="10759" role="tab" aria-selected="false">⚡ مغامرة</button>
                     </div>
                 </div>
 
                 <!-- Section Header -->
                 <div class="section-header">
                     <h2 class="section-title" id="sectionTitle">
-                        <span class="icon">🔥</span>
+                        <span class="icon" aria-hidden="true">🔥</span>
                         <span class="text">الأنمي الشائع</span>
                     </h2>
                 </div>
 
                 <!-- Loading -->
-                <div class="loading-container" id="loading">
-                    <div class="loading-spinner"></div>
+                <div class="loading-container" id="loading" role="status" aria-live="polite">
+                    <div class="loading-spinner" aria-hidden="true"></div>
+                    <p class="loading-text">جاري التحميل...</p>
                 </div>
 
                 <!-- Content Grid -->
-                <div class="content-grid" id="contentGrid"></div>
+                <div class="content-grid" id="contentGrid" role="tabpanel" aria-labelledby="sectionTitle"></div>
             </section>
         </div>
     </main>
 
     <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="العودة إلى أعلى الصفحة">
+        <span aria-hidden="true">↑</span>
+    </button>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="icon-192.png" alt="SerieHub">
+                <img src="icon-192.png" alt="" aria-hidden="true">
                 <span>SerieHub</span>
             </div>
-            <div class="footer-links">
+            <nav class="footer-links" aria-label="روابط التذييل">
                 <a href="#" onclick="resetToHome(); return false;">الرئيسية</a>
                 <a href="#" onclick="loadTopRated(); return false;">الأعلى تقييماً</a>
                 <a href="#" onclick="loadOnAir(); return false;">يعرض الآن</a>
-            </div>
-            <div class="footer-social">
-                <a href="#" title="Facebook">📘</a>
-                <a href="#" title="Twitter">🐦</a>
-                <a href="#" title="Instagram">📸</a>
-                <a href="#" title="Discord">💬</a>
+                <a href="#" onclick="showPrivacyPolicy(); return false;">سياسة الخصوصية</a>
+                <a href="#" onclick="showTerms(); return false;">شروط الاستخدام</a>
+            </nav>
+            <div class="footer-social" aria-label="وسائل التواصل الاجتماعي">
+                <a href="#" title="Facebook" aria-label="صفحتنا على فيسبوك">📘</a>
+                <a href="#" title="Twitter" aria-label="حسابنا على تويتر">🐦</a>
+                <a href="#" title="Instagram" aria-label="حسابنا على انستغرام">📸</a>
+                <a href="#" title="Discord" aria-label="سيرفر الديسكورد">💬</a>
             </div>
             <p class="footer-copyright">
-                © 2024 SerieHub - جميع الحقوق محفوظة<br>
-                البيانات من <a href="https://www.themoviedb.org/" target="_blank">TMDB</a>
+                © <span id="currentYear">2024</span> SerieHub - جميع الحقوق محفوظة<br>
+                البيانات من <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>
             </p>
         </div>
     </footer>
 
     <!-- Modal -->
-    <div class="modal" id="modal">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <img class="modal-backdrop" id="modalBackdrop" src="" alt="">
+                <img class="modal-backdrop" id="modalBackdrop" src="" alt="" loading="lazy">
                 <div class="modal-gradient"></div>
-                <button class="close-btn" onclick="closeModal()">✕</button>
+                <button class="close-btn" onclick="closeModal()" aria-label="إغلاق">✕</button>
             </div>
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
+    <!-- Visually Hidden Styles -->
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+
     <script>
         // ===== Configuration =====
         const CONFIG = {
-            API_KEY: '8265bd1679663a7ea12ac168da84d2e8',
+            // API Key encoded in base64 for basic protection
+            // In production, use a backend proxy!
+            API_KEY: atob('ODI2NWJkMTY3OTY2M2E3ZWExMmFjMTY4ZGE4NGQyZTg='),
             BASE_URL: 'https://api.themoviedb.org/3',
             IMG_URL: 'https://image.tmdb.org/t/p',
-            LANG: 'ar'
+            LANG: 'ar',
+            CACHE_DURATION: 5 * 60 * 1000, // 5 minutes
         };
 
         // ===== Servers =====
@@ -2242,33 +2638,152 @@
             currentShow: null,
             currentSeason: 1,
             currentEpisode: 1,
-            currentServer: 0
+            currentServer: 0,
+            isOnline: navigator.onLine,
+            cache: new Map()
+        };
+
+        // ===== API Rate Limiter =====
+        const apiLimiter = {
+            requests: [],
+            maxRequests: 40,
+            timeWindow: 10000, // 10 seconds
+            
+            canMakeRequest() {
+                const now = Date.now();
+                this.requests = this.requests.filter(time => now - time < this.timeWindow);
+                
+                if (this.requests.length >= this.maxRequests) {
+                    return false;
+                }
+                
+                this.requests.push(now);
+                return true;
+            },
+            
+            getRemainingRequests() {
+                const now = Date.now();
+                this.requests = this.requests.filter(time => now - time < this.timeWindow);
+                return this.maxRequests - this.requests.length;
+            }
         };
 
         // ===== Elements =====
         const $ = id => document.getElementById(id);
         const $$ = sel => document.querySelectorAll(sel);
 
+        // ===== Debounce Function =====
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // ===== Throttle Function =====
+        function throttle(func, limit) {
+            let inThrottle;
+            return function(...args) {
+                if (!inThrottle) {
+                    func.apply(this, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        }
+
         // ===== Initialize =====
         document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+        });
+
+        async function initApp() {
+            // Set current year
+            $('currentYear').textContent = new Date().getFullYear();
+            
+            // Create particles
             createParticles();
+            
+            // Apply theme
             applyTheme();
+            
+            // Update favorites count
             updateFavoritesCount();
-            loadHeroCards();
-            loadContent();
+            
+            // Setup event listeners
             setupEventListeners();
+            
+            // Setup scroll effects
             setupScrollEffects();
+            
+            // Setup online/offline detection
+            setupNetworkDetection();
+            
+            // Register Service Worker
+            registerServiceWorker();
+            
+            // Load initial content
+            await Promise.all([
+                loadHeroCards(),
+                loadContent()
+            ]);
             
             // Hide preloader
             setTimeout(() => {
                 $('preloader').classList.add('hidden');
+                $('preloader').setAttribute('aria-hidden', 'true');
             }, 1500);
-        });
+        }
+
+        // ===== Service Worker =====
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register('sw.js');
+                    console.log('Service Worker registered:', registration.scope);
+                } catch (error) {
+                    console.log('Service Worker registration failed:', error);
+                }
+            }
+        }
+
+        // ===== Network Detection =====
+        function setupNetworkDetection() {
+            const updateOnlineStatus = () => {
+                state.isOnline = navigator.onLine;
+                const banner = $('offlineBanner');
+                
+                if (!state.isOnline) {
+                    banner.classList.add('show');
+                    document.body.style.paddingTop = banner.offsetHeight + 'px';
+                    showNotification('لا يوجد اتصال بالإنترنت ⚠️', 'warning');
+                } else {
+                    banner.classList.remove('show');
+                    document.body.style.paddingTop = '0';
+                    showNotification('تم الاتصال بالإنترنت ✅', 'success');
+                }
+            };
+
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            
+            // Initial check
+            if (!navigator.onLine) {
+                $('offlineBanner').classList.add('show');
+            }
+        }
 
         // ===== Particles =====
         function createParticles() {
             const container = $('particles');
-            for (let i = 0; i < 50; i++) {
+            const particleCount = window.innerWidth < 768 ? 25 : 50;
+            
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
@@ -2282,32 +2797,91 @@
 
         // ===== Event Listeners =====
         function setupEventListeners() {
-            $('searchInput').addEventListener('keypress', e => {
-                if (e.key === 'Enter') performSearch();
+            // Search with debounce
+            const searchInput = $('searchInput');
+            const debouncedSearch = debounce((value) => {
+                if (value.trim().length >= 2) {
+                    loadSearchSuggestions(value);
+                } else {
+                    hideSearchSuggestions();
+                }
+            }, 300);
+
+            searchInput.addEventListener('input', (e) => {
+                debouncedSearch(e.target.value);
             });
 
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    hideSearchSuggestions();
+                    performSearch();
+                }
+            });
+
+            // Close suggestions on click outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-wrapper')) {
+                    hideSearchSuggestions();
+                }
+            });
+
+            // Category chips
             $$('.category-chip').forEach(chip => {
                 chip.addEventListener('click', () => {
-                    $$('.category-chip').forEach(c => c.classList.remove('active'));
+                    $$('.category-chip').forEach(c => {
+                        c.classList.remove('active');
+                        c.setAttribute('aria-selected', 'false');
+                    });
                     chip.classList.add('active');
+                    chip.setAttribute('aria-selected', 'true');
                     state.currentGenre = chip.dataset.genre;
                     state.currentPage = 1;
                     loadContent();
                 });
             });
 
-            $('modal').addEventListener('click', e => {
+            // Modal events
+            $('modal').addEventListener('click', (e) => {
                 if (e.target === $('modal')) closeModal();
             });
 
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape') closeModal();
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeMobileMenu();
+                    hideSearchSuggestions();
+                }
             });
+
+            // Focus trap for modal
+            $('modal').addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    trapFocus(e, $('modal'));
+                }
+            });
+        }
+
+        // ===== Focus Trap =====
+        function trapFocus(e, container) {
+            const focusableElements = container.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+            }
         }
 
         // ===== Scroll Effects =====
         function setupScrollEffects() {
-            window.addEventListener('scroll', () => {
+            const throttledScroll = throttle(() => {
                 const header = $('header');
                 const backToTop = $('backToTop');
                 
@@ -2316,18 +2890,23 @@
 
                 // Infinite scroll
                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
-                    if (!state.isLoading && state.hasMore && !state.showFavorites) {
+                    if (!state.isLoading && state.hasMore && !state.showFavorites && state.isOnline) {
                         state.currentPage++;
                         loadContent(true);
                     }
                 }
-            });
+            }, 100);
+
+            window.addEventListener('scroll', throttledScroll, { passive: true });
         }
 
         // ===== Theme =====
         function applyTheme() {
             document.documentElement.setAttribute('data-theme', state.theme);
             $('themeIcon').textContent = state.theme === 'light' ? '☀️' : '🌙';
+            $('themeBtn').setAttribute('aria-label', 
+                state.theme === 'light' ? 'تفعيل الوضع الليلي' : 'تفعيل الوضع النهاري'
+            );
         }
 
         function toggleTheme() {
@@ -2335,6 +2914,38 @@
             localStorage.setItem('serieHubTheme', state.theme);
             applyTheme();
             showNotification(`تم التغيير للوضع ${state.theme === 'light' ? 'النهاري' : 'الليلي'}`, 'info');
+        }
+
+        // ===== Mobile Menu =====
+        function toggleMobileMenu() {
+            const menu = $('mobileMenu');
+            const btn = $('mobileMenuBtn');
+            const overlay = $('mobileMenuOverlay');
+            const isOpen = menu.classList.contains('open');
+            
+            menu.classList.toggle('open');
+            btn.classList.toggle('active');
+            overlay.style.display = isOpen ? 'none' : 'block';
+            setTimeout(() => overlay.classList.toggle('show', !isOpen), 10);
+            
+            btn.setAttribute('aria-expanded', !isOpen);
+            menu.setAttribute('aria-hidden', isOpen);
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+        }
+
+        function closeMobileMenu() {
+            const menu = $('mobileMenu');
+            const btn = $('mobileMenuBtn');
+            const overlay = $('mobileMenuOverlay');
+            
+            menu.classList.remove('open');
+            btn.classList.remove('active');
+            overlay.classList.remove('show');
+            setTimeout(() => overlay.style.display = 'none', 300);
+            
+            btn.setAttribute('aria-expanded', 'false');
+            menu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
         }
 
         // ===== Utilities =====
@@ -2346,7 +2957,8 @@
         }
 
         function getImage(path, size = 'w500') {
-            return path ? `${CONFIG.IMG_URL}/${size}${path}` : 'https://via.placeholder.com/500x750/1a1a3e/ffffff?text=No+Image';
+            if (!path) return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 750"%3E%3Crect fill="%231a1a3e" width="500" height="750"/%3E%3Ctext fill="%23ffffff" x="50%25" y="50%25" text-anchor="middle" dy=".3em" font-size="24"%3ENo Image%3C/text%3E%3C/svg%3E';
+            return `${CONFIG.IMG_URL}/${size}${path}`;
         }
 
         function generateStars(rating) {
@@ -2359,15 +2971,80 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ===== Cache Management =====
+        function getCachedData(key) {
+            const cached = state.cache.get(key);
+            if (cached && Date.now() - cached.timestamp < CONFIG.CACHE_DURATION) {
+                return cached.data;
+            }
+            return null;
+        }
+
+        function setCachedData(key, data) {
+            state.cache.set(key, {
+                data,
+                timestamp: Date.now()
+            });
+        }
+
+        // ===== API Fetch with Retry =====
+        async function fetchWithRetry(url, retries = 3, delay = 1000) {
+            // Check rate limit
+            if (!apiLimiter.canMakeRequest()) {
+                showNotification('يرجى الانتظار قليلاً قبل المحاولة مرة أخرى', 'warning');
+                throw new Error('Rate limit exceeded');
+            }
+
+            // Check cache
+            const cached = getCachedData(url);
+            if (cached) return cached;
+
+            // Check online status
+            if (!state.isOnline) {
+                throw new Error('No internet connection');
+            }
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    const data = await response.json();
+                    setCachedData(url, data);
+                    return data;
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+                }
+            }
+        }
+
         // ===== Notifications =====
         function showNotification(message, type = 'info') {
-            document.querySelectorAll('.notification').forEach(n => n.remove());
+            // Remove existing notifications
+            $$('.notification').forEach(n => n.remove());
+            
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
-            notification.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()">×</button>`;
+            notification.setAttribute('role', 'alert');
+            notification.setAttribute('aria-live', 'assertive');
+            notification.innerHTML = `
+                <div class="notification-content">${sanitize(message)}</div>
+                <button onclick="this.parentElement.remove()" aria-label="إغلاق الإشعار">×</button>
+            `;
             document.body.appendChild(notification);
-            setTimeout(() => notification.classList.add('show'), 10);
-            setTimeout(() => notification.remove(), 4000);
+            
+            // Trigger animation
+            requestAnimationFrame(() => {
+                notification.classList.add('show');
+            });
+            
+            // Auto remove
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
         }
 
         // ===== Loading =====
@@ -2381,21 +3058,72 @@
             $('loading').classList.remove('active');
         }
 
+        // ===== Search Suggestions =====
+        async function loadSearchSuggestions(query) {
+            if (!state.isOnline || query.length < 2) return;
+
+            try {
+                const url = `${CONFIG.BASE_URL}/search/tv?api_key=${CONFIG.API_KEY}&query=${encodeURIComponent(query)}&page=1&language=${CONFIG.LANG}`;
+                const data = await fetchWithRetry(url);
+                
+                const suggestions = $('searchSuggestions');
+                if (data.results?.length > 0) {
+                    suggestions.innerHTML = data.results.slice(0, 5).map(item => `
+                        <div class="suggestion-item" 
+                             onclick="openModal(${item.id}); hideSearchSuggestions();"
+                             role="option"
+                             tabindex="0">
+                            <img src="${getImage(item.poster_path, 'w92')}" alt="" loading="lazy">
+                            <div class="suggestion-item-info">
+                                <h4>${sanitize(item.name)}</h4>
+                                <span>${item.first_air_date ? new Date(item.first_air_date).getFullYear() : '----'}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                    suggestions.classList.add('show');
+                    $('searchInput').setAttribute('aria-expanded', 'true');
+                } else {
+                    hideSearchSuggestions();
+                }
+            } catch (error) {
+                console.error('Search suggestions error:', error);
+            }
+        }
+
+        function hideSearchSuggestions() {
+            $('searchSuggestions').classList.remove('show');
+            $('searchInput').setAttribute('aria-expanded', 'false');
+        }
+
         // ===== Hero Cards =====
         async function loadHeroCards() {
             try {
                 const url = `${CONFIG.BASE_URL}/trending/tv/week?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`;
-                const response = await fetch(url);
-                const data = await response.json();
+                const data = await fetchWithRetry(url);
                 
                 const container = $('heroCards');
                 container.innerHTML = data.results.slice(0, 4).map(item => `
-                    <div class="hero-card" onclick="openModal(${item.id})">
-                        <img class="hero-card-img" src="${getImage(item.poster_path, 'w300')}" alt="${sanitize(item.name)}">
+                    <div class="hero-card" onclick="openModal(${item.id})" tabindex="0" role="button" aria-label="${sanitize(item.name)}">
+                        <img class="hero-card-img" 
+                             src="${getImage(item.poster_path, 'w300')}" 
+                             alt="${sanitize(item.name)}"
+                             loading="lazy"
+                             decoding="async"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 450%22%3E%3Crect fill=%22%231a1a3e%22 width=%22300%22 height=%22450%22/%3E%3C/svg%3E'">
                         <h4 class="hero-card-title">${sanitize(item.name)}</h4>
                         <span class="hero-card-meta">⭐ ${item.vote_average?.toFixed(1) || 'N/A'}</span>
                     </div>
                 `).join('');
+
+                // Add keyboard support
+                container.querySelectorAll('.hero-card').forEach(card => {
+                    card.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            card.click();
+                        }
+                    });
+                });
             } catch (error) {
                 console.error('Error loading hero cards:', error);
             }
@@ -2409,9 +3137,12 @@
             state.showFavorites = false;
             $('searchInput').value = '';
             $('favoritesBtn').classList.remove('active');
+            $('favoritesBtn').setAttribute('aria-pressed', 'false');
 
             $$('.tab-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.type === type);
+                const isActive = btn.dataset.type === type;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive);
             });
 
             const titles = {
@@ -2428,7 +3159,7 @@
         function updateSectionTitle(title) {
             const parts = title.split(' ');
             $('sectionTitle').innerHTML = `
-                <span class="icon">${parts[0]}</span>
+                <span class="icon" aria-hidden="true">${parts[0]}</span>
                 <span class="text">${parts.slice(1).join(' ')}</span>
             `;
         }
@@ -2436,14 +3167,26 @@
         // ===== Search =====
         function performSearch() {
             const query = $('searchInput').value.trim();
-            if (!query) return;
+            if (!query) {
+                showNotification('يرجى إدخال كلمة للبحث', 'warning');
+                return;
+            }
+
+            if (!state.isOnline) {
+                showNotification('لا يوجد اتصال بالإنترنت', 'error');
+                return;
+            }
 
             state.searchQuery = query;
             state.currentPage = 1;
             state.currentGenre = '';
             state.showFavorites = false;
             $('favoritesBtn').classList.remove('active');
-            $$('.category-chip').forEach(c => c.classList.remove('active'));
+            $('favoritesBtn').setAttribute('aria-pressed', 'false');
+            $$('.category-chip').forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-selected', 'false');
+            });
 
             updateSectionTitle(`🔍 نتائج: "${query}"`);
             loadContent();
@@ -2459,9 +3202,18 @@
 
             $('searchInput').value = '';
             $('favoritesBtn').classList.remove('active');
+            $('favoritesBtn').setAttribute('aria-pressed', 'false');
             
-            $$('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.type === 'anime'));
-            $$('.category-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.genre === ''));
+            $$('.tab-btn').forEach(btn => {
+                const isActive = btn.dataset.type === 'anime';
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive);
+            });
+            $$('.category-chip').forEach(chip => {
+                const isActive = chip.dataset.genre === '';
+                chip.classList.toggle('active', isActive);
+                chip.setAttribute('aria-selected', isActive);
+            });
 
             updateSectionTitle('🌸 الأنمي الشائع');
             loadContent();
@@ -2475,7 +3227,9 @@
 
         function toggleFavorites() {
             state.showFavorites = !state.showFavorites;
-            $('favoritesBtn').classList.toggle('active', state.showFavorites);
+            const btn = $('favoritesBtn');
+            btn.classList.toggle('active', state.showFavorites);
+            btn.setAttribute('aria-pressed', state.showFavorites);
 
             if (state.showFavorites) {
                 updateSectionTitle('❤️ المفضلة');
@@ -2503,7 +3257,8 @@
             const btn = document.querySelector(`.card[data-id="${id}"] .favorite-btn`);
             if (btn) {
                 btn.classList.toggle('active');
-                btn.textContent = state.favorites.includes(id) ? '❤️' : '🤍';
+                btn.innerHTML = state.favorites.includes(id) ? '❤️' : '🤍';
+                btn.setAttribute('aria-label', state.favorites.includes(id) ? 'إزالة من المفضلة' : 'إضافة للمفضلة');
             }
         }
 
@@ -2511,7 +3266,7 @@
             if (state.favorites.length === 0) {
                 $('contentGrid').innerHTML = `
                     <div class="no-results">
-                        <div class="no-results-icon">💔</div>
+                        <div class="no-results-icon" aria-hidden="true">💔</div>
                         <h3>لا توجد عناصر في المفضلة</h3>
                         <p>أضف مسلسلات للمفضلة بالضغط على ❤️</p>
                         <button class="btn btn-primary" onclick="resetToHome()">استكشف المحتوى</button>
@@ -2525,15 +3280,15 @@
 
             try {
                 const promises = state.favorites.map(id =>
-                    fetch(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`)
-                        .then(r => r.json())
+                    fetchWithRetry(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`)
                         .catch(() => null)
                 );
 
                 const results = await Promise.all(promises);
                 results.filter(item => item?.id).forEach((item, i) => createCard(item, i));
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error loading favorites:', error);
+                showNotification('حدث خطأ في تحميل المفضلة', 'error');
             } finally {
                 hideLoading();
             }
@@ -2542,6 +3297,18 @@
         // ===== Load Content =====
         async function loadContent(append = false) {
             if (state.isLoading) return;
+
+            if (!state.isOnline) {
+                $('contentGrid').innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon" aria-hidden="true">📡</div>
+                        <h3>لا يوجد اتصال بالإنترنت</h3>
+                        <p>تحقق من اتصالك بالإنترنت وحاول مرة أخرى</p>
+                        <button class="btn btn-primary" onclick="loadContent()">إعادة المحاولة</button>
+                    </div>
+                `;
+                return;
+            }
 
             showLoading();
             if (!append) $('contentGrid').innerHTML = '';
@@ -2565,8 +3332,7 @@
                     url = `${CONFIG.BASE_URL}/discover/tv?api_key=${CONFIG.API_KEY}&${params}&page=${state.currentPage}&language=${CONFIG.LANG}`;
                 }
 
-                const response = await fetch(url);
-                const data = await response.json();
+                const data = await fetchWithRetry(url);
 
                 state.hasMore = state.currentPage < data.total_pages;
 
@@ -2575,7 +3341,7 @@
                 } else if (!append) {
                     $('contentGrid').innerHTML = `
                         <div class="no-results">
-                            <div class="no-results-icon">🔍</div>
+                            <div class="no-results-icon" aria-hidden="true">🔍</div>
                             <h3>لم يتم العثور على نتائج</h3>
                             <p>جرب البحث بكلمات مختلفة</p>
                             <button class="btn btn-primary" onclick="resetToHome()">العودة للرئيسية</button>
@@ -2583,7 +3349,20 @@
                     `;
                 }
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error loading content:', error);
+                
+                if (!append) {
+                    $('contentGrid').innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon" aria-hidden="true">⚠️</div>
+                            <h3>حدث خطأ في الاتصال</h3>
+                            <p>تحقق من اتصالك بالإنترنت وحاول مرة أخرى</p>
+                            <button class="btn btn-primary" onclick="loadContent()">إعادة المحاولة</button>
+                        </div>
+                    `;
+                }
+                
+                showNotification('حدث خطأ في تحميل المحتوى', 'error');
             } finally {
                 hideLoading();
             }
@@ -2594,6 +3373,7 @@
             state.searchQuery = '';
             state.showFavorites = false;
             $('favoritesBtn').classList.remove('active');
+            $('favoritesBtn').setAttribute('aria-pressed', 'false');
 
             updateSectionTitle('⭐ الأعلى تقييماً');
             showLoading();
@@ -2601,11 +3381,11 @@
 
             try {
                 const url = `${CONFIG.BASE_URL}/tv/top_rated?api_key=${CONFIG.API_KEY}&page=1&language=${CONFIG.LANG}`;
-                const response = await fetch(url);
-                const data = await response.json();
+                const data = await fetchWithRetry(url);
                 data.results.forEach((item, i) => createCard(item, i));
             } catch (error) {
                 console.error('Error:', error);
+                showNotification('حدث خطأ في التحميل', 'error');
             } finally {
                 hideLoading();
             }
@@ -2616,6 +3396,7 @@
             state.searchQuery = '';
             state.showFavorites = false;
             $('favoritesBtn').classList.remove('active');
+            $('favoritesBtn').setAttribute('aria-pressed', 'false');
 
             updateSectionTitle('📺 يعرض الآن');
             showLoading();
@@ -2623,11 +3404,11 @@
 
             try {
                 const url = `${CONFIG.BASE_URL}/tv/on_the_air?api_key=${CONFIG.API_KEY}&page=1&language=${CONFIG.LANG}`;
-                const response = await fetch(url);
-                const data = await response.json();
+                const data = await fetchWithRetry(url);
                 data.results.forEach((item, i) => createCard(item, i));
             } catch (error) {
                 console.error('Error:', error);
+                showNotification('حدث خطأ في التحميل', 'error');
             } finally {
                 hideLoading();
             }
@@ -2635,11 +3416,13 @@
 
         // ===== Create Card =====
         function createCard(item, index = 0) {
-            const card = document.createElement('div');
+            const card = document.createElement('article');
             card.className = 'card';
             card.style.animationDelay = `${index * 0.05}s`;
             card.dataset.id = item.id;
-            card.onclick = () => openModal(item.id);
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'article');
+            card.setAttribute('aria-label', sanitize(item.name));
 
             const rating = item.vote_average?.toFixed(1) || 'N/A';
             const year = item.first_air_date ? new Date(item.first_air_date).getFullYear() : '----';
@@ -2649,16 +3432,23 @@
 
             card.innerHTML = `
                 <div class="card-poster">
-                    <img src="${getImage(item.poster_path)}" alt="${sanitize(item.name)}" loading="lazy">
+                    <img src="${getImage(item.poster_path)}" 
+                         alt="${sanitize(item.name)}" 
+                         loading="lazy"
+                         decoding="async"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 500 750%22%3E%3Crect fill=%22%231a1a3e%22 width=%22500%22 height=%22750%22/%3E%3Ctext fill=%22%23fff%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3ENo Image%3C/text%3E%3C/svg%3E'">
                     <div class="card-overlay">
-                        <div class="play-button">▶</div>
+                        <div class="play-button" aria-hidden="true">▶</div>
                     </div>
                     <div class="card-badges">
                         <span class="card-badge badge-rating">⭐ ${rating}</span>
                         ${isNew ? '<span class="card-badge badge-new">جديد</span>' : ''}
                         <span class="card-badge badge-episodes">📺 ${episodes}</span>
                     </div>
-                    <button class="favorite-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(${item.id}, event)">
+                    <button class="favorite-btn ${isFav ? 'active' : ''}" 
+                            onclick="toggleFavorite(${item.id}, event)"
+                            aria-label="${isFav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}"
+                            aria-pressed="${isFav}">
                         ${isFav ? '❤️' : '🤍'}
                     </button>
                 </div>
@@ -2666,26 +3456,41 @@
                     <h3 class="card-title">${sanitize(item.name)}</h3>
                     <div class="card-meta">
                         <span>📅 ${year}</span>
-                        <span class="card-rating">${generateStars(item.vote_average)}</span>
+                        <span class="card-rating" aria-label="التقييم ${rating} من 10">${generateStars(item.vote_average)}</span>
                     </div>
                 </div>
             `;
+
+            // Click and keyboard events
+            card.onclick = () => openModal(item.id);
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(item.id);
+                }
+            });
 
             $('contentGrid').appendChild(card);
         }
 
         // ===== Modal =====
         async function openModal(id) {
+            if (!state.isOnline) {
+                showNotification('لا يوجد اتصال بالإنترنت', 'error');
+                return;
+            }
+
             showLoading();
 
             try {
                 const [show, credits] = await Promise.all([
-                    fetch(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`).then(r => r.json()),
-                    fetch(`${CONFIG.BASE_URL}/tv/${id}/credits?api_key=${CONFIG.API_KEY}`).then(r => r.json())
+                    fetchWithRetry(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`),
+                    fetchWithRetry(`${CONFIG.BASE_URL}/tv/${id}/credits?api_key=${CONFIG.API_KEY}`)
                 ]);
 
+                // Get English overview if Arabic is not available
                 if (!show.overview) {
-                    const enShow = await fetch(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=en`).then(r => r.json());
+                    const enShow = await fetchWithRetry(`${CONFIG.BASE_URL}/tv/${id}?api_key=${CONFIG.API_KEY}&language=en`);
                     show.overview = enShow.overview;
                 }
 
@@ -2694,8 +3499,15 @@
                 state.currentEpisode = 1;
 
                 displayModal(show, credits);
-                $('modal').classList.add('active');
+                
+                const modal = $('modal');
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
+                
+                // Focus management
+                const closeBtn = modal.querySelector('.close-btn');
+                if (closeBtn) closeBtn.focus();
 
             } catch (error) {
                 console.error('Error:', error);
@@ -2706,10 +3518,18 @@
         }
 
         function closeModal() {
-            $('modal').classList.remove('active');
+            const modal = $('modal');
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
+            
+            // Stop video
             const iframe = $('modalBody').querySelector('iframe');
             if (iframe) iframe.src = '';
+            
+            // Return focus to trigger element
+            const card = document.querySelector(`.card[data-id="${state.currentShow?.id}"]`);
+            if (card) card.focus();
         }
 
         function displayModal(show, credits) {
@@ -2724,10 +3544,12 @@
             $('modalBody').innerHTML = `
                 <div class="details-grid">
                     <div class="details-poster">
-                        <img src="${getImage(show.poster_path)}" alt="${sanitize(show.name)}">
+                        <img src="${getImage(show.poster_path)}" 
+                             alt="${sanitize(show.name)}"
+                             loading="lazy">
                     </div>
                     <div class="details-info">
-                        <h1 class="details-title">${sanitize(show.name)}</h1>
+                        <h1 class="details-title" id="modalTitle">${sanitize(show.name)}</h1>
                         ${show.original_name !== show.name ? `<p class="details-original-title">${sanitize(show.original_name)}</p>` : ''}
                         
                         <div class="details-stats">
@@ -2749,67 +3571,79 @@
                             </div>
                         </div>
 
-                        <div class="genres-list">
-                            ${show.genres?.map(g => `<span class="genre-tag">${g.name}</span>`).join('') || ''}
+                        <div class="genres-list" role="list" aria-label="التصنيفات">
+                            ${show.genres?.map(g => `<span class="genre-tag" role="listitem">${g.name}</span>`).join('') || ''}
                         </div>
 
                         <div class="details-buttons">
                             <button class="btn btn-primary" onclick="showPlayer()">
-                                <span class="btn-icon">▶</span>
+                                <span class="btn-icon" aria-hidden="true">▶</span>
                                 مشاهدة الآن
                             </button>
-                            <button class="btn btn-secondary ${isFav ? 'active' : ''}" onclick="toggleFavorite(${show.id}); this.innerHTML = state.favorites.includes(${show.id}) ? '❤️ في المفضلة' : '🤍 أضف للمفضلة';">
+                            <button class="btn btn-secondary ${isFav ? 'active' : ''}" 
+                                    onclick="toggleFavorite(${show.id}); this.innerHTML = state.favorites.includes(${show.id}) ? '❤️ في المفضلة' : '🤍 أضف للمفضلة';"
+                                    aria-pressed="${isFav}">
                                 ${isFav ? '❤️ في المفضلة' : '🤍 أضف للمفضلة'}
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="overview-section">
-                    <h3>📝 القصة</h3>
+                <section class="overview-section" aria-labelledby="overview-title">
+                    <h3 id="overview-title">📝 القصة</h3>
                     <p>${sanitize(show.overview) || 'لا يوجد وصف متاح.'}</p>
-                </div>
+                </section>
 
                 ${seasons.length > 0 ? `
-                <div class="seasons-section">
-                    <h3>📺 المواسم والحلقات</h3>
-                    <div class="seasons-tabs">
+                <section class="seasons-section" aria-labelledby="seasons-title">
+                    <h3 id="seasons-title">📺 المواسم والحلقات</h3>
+                    <div class="seasons-tabs" role="tablist" aria-label="اختيار الموسم">
                         ${seasons.map(s => `
                             <button class="season-tab ${s.season_number === 1 ? 'active' : ''}" 
-                                    onclick="loadEpisodes(${show.id}, ${s.season_number})">
+                                    onclick="loadEpisodes(${show.id}, ${s.season_number})"
+                                    role="tab"
+                                    aria-selected="${s.season_number === 1}"
+                                    aria-controls="episodesGrid">
                                 الموسم ${s.season_number}
                             </button>
                         `).join('')}
                     </div>
-                    <div class="episodes-grid" id="episodesGrid">
+                    <div class="episodes-grid" id="episodesGrid" role="tabpanel" aria-label="قائمة الحلقات">
                         <p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">جاري التحميل...</p>
                     </div>
-                </div>
+                </section>
                 ` : ''}
 
-                <div class="player-section" id="playerSection">
+                <section class="player-section" id="playerSection" aria-labelledby="player-title">
                     <div class="player-header">
                         <div class="player-info">
-                            <h4 id="playerTitle">مشاهدة ${sanitize(show.name)}</h4>
+                            <h4 id="player-title" id="playerTitle">مشاهدة ${sanitize(show.name)}</h4>
                             <p id="playerSubtitle">الموسم 1 - الحلقة 1</p>
                         </div>
-                        <div class="server-buttons">
+                        <div class="server-buttons" role="group" aria-label="اختيار السيرفر">
                             ${SERVERS.map((s, i) => `
-                                <button class="server-btn ${i === 0 ? 'active' : ''}" onclick="changeServer(${i})">${s.name}</button>
+                                <button class="server-btn ${i === 0 ? 'active' : ''}" 
+                                        onclick="changeServer(${i})"
+                                        aria-pressed="${i === 0}">
+                                    ${s.name}
+                                </button>
                             `).join('')}
                         </div>
                     </div>
                     <div class="player-container" id="playerContainer"></div>
                     <p class="player-note">💡 إذا لم يعمل السيرفر، جرب سيرفر آخر</p>
-                </div>
+                </section>
 
                 ${cast.length > 0 ? `
-                <div class="cast-section">
-                    <h3>🎭 طاقم التمثيل</h3>
-                    <div class="cast-grid">
+                <section class="cast-section" aria-labelledby="cast-title">
+                    <h3 id="cast-title">🎭 طاقم التمثيل</h3>
+                    <div class="cast-grid" role="list">
                         ${cast.map(actor => `
-                            <div class="cast-card">
-                                <img src="${getImage(actor.profile_path, 'w185')}" alt="${sanitize(actor.name)}">
+                            <div class="cast-card" role="listitem">
+                                <img src="${getImage(actor.profile_path, 'w185')}" 
+                                     alt="${sanitize(actor.name)}"
+                                     loading="lazy"
+                                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 185 278%22%3E%3Crect fill=%22%231a1a3e%22 width=%22185%22 height=%22278%22/%3E%3C/svg%3E'">
                                 <div class="cast-card-info">
                                     <h4>${sanitize(actor.name)}</h4>
                                     <p>${sanitize(actor.character)}</p>
@@ -2817,7 +3651,7 @@
                             </div>
                         `).join('')}
                     </div>
-                </div>
+                </section>
                 ` : ''}
             `;
 
@@ -2828,20 +3662,22 @@
             state.currentSeason = seasonNumber;
 
             $$('.season-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.textContent.includes(seasonNumber));
+                const isActive = tab.textContent.includes(seasonNumber);
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive);
             });
 
             const grid = $('episodesGrid');
             grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">جاري التحميل...</p>';
 
             try {
-                const response = await fetch(`${CONFIG.BASE_URL}/tv/${showId}/season/${seasonNumber}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`);
-                const data = await response.json();
+                const data = await fetchWithRetry(`${CONFIG.BASE_URL}/tv/${showId}/season/${seasonNumber}?api_key=${CONFIG.API_KEY}&language=${CONFIG.LANG}`);
 
                 if (data.episodes?.length > 0) {
                     grid.innerHTML = data.episodes.map(ep => `
                         <button class="episode-btn ${ep.episode_number === state.currentEpisode ? 'active' : ''}" 
-                                onclick="selectEpisode(${ep.episode_number})">
+                                onclick="selectEpisode(${ep.episode_number})"
+                                aria-pressed="${ep.episode_number === state.currentEpisode}">
                             <span class="episode-number">${ep.episode_number}</span>
                             <span class="episode-title">${sanitize(ep.name) || `الحلقة ${ep.episode_number}`}</span>
                         </button>
@@ -2851,13 +3687,16 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">خطأ في التحميل</p>';
             }
         }
 
         function selectEpisode(episodeNumber) {
             state.currentEpisode = episodeNumber;
             $$('.episode-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.querySelector('.episode-number').textContent == episodeNumber);
+                const isActive = btn.querySelector('.episode-number').textContent == episodeNumber;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-pressed', isActive);
             });
             if ($('playerSection').style.display === 'block') updatePlayer();
         }
@@ -2876,13 +3715,25 @@
             $('playerSubtitle').textContent = `الموسم ${state.currentSeason} - الحلقة ${state.currentEpisode}`;
             const server = SERVERS[state.currentServer];
             const url = server.url(show.id, state.currentSeason, state.currentEpisode);
-            $('playerContainer').innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; fullscreen"></iframe>`;
+            $('playerContainer').innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; fullscreen" title="مشغل الفيديو"></iframe>`;
         }
 
         function changeServer(index) {
             state.currentServer = index;
-            $$('.server-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
+            $$('.server-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+                btn.setAttribute('aria-pressed', i === index);
+            });
             updatePlayer();
+        }
+
+        // ===== Additional Pages =====
+        function showPrivacyPolicy() {
+            showNotification('صفحة سياسة الخصوصية قيد الإنشاء', 'info');
+        }
+
+        function showTerms() {
+            showNotification('صفحة شروط الاستخدام قيد الإنشاء', 'info');
         }
     </script>
 </body>
