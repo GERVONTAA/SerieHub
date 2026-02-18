@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غير متصل - SerieHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .offline-container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .offline-icon {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .offline-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .offline-message {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .offline-suggestions {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: right;
+        }
+
+        .offline-suggestions h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #818cf8;
+        }
+
+        .offline-suggestions ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .offline-suggestions li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .offline-suggestions li::before {
+            content: '✓';
+            color: #10b981;
+        }
+
+        .retry-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .retry-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .logo {
+            position: absolute;
+            top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #ef4444;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .online-status {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .online-status .status-dot {
+            background: #10b981;
+            animation: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="logo">
+        <span class="logo-text">SerieHub</span>
+    </div>
+
+    <div class="offline-container">
+        <div class="offline-icon">📡</div>
+        
+        <h1 class="offline-title">غير متصل بالإنترنت</h1>
+        
+        <p class="offline-message">
+            يبدو أنك غير متصل بالإنترنت حالياً. تحقق من اتصالك وحاول مرة أخرى.
+        </p>
+
+        <div class="offline-suggestions">
+            <h3>💡 اقتراحات:</h3>
+            <ul>
+                <li>تحقق من اتصال WiFi أو بيانات الهاتف</li>
+                <li>حاول إعادة تشغيل الراوتر</li>
+                <li>تأكد من عدم تفعيل وضع الطيران</li>
+                <li>جرب فتح صفحة أخرى للتأكد</li>
+            </ul>
+        </div>
+
+        <button class="retry-btn" onclick="retryConnection()">
+            <span>🔄</span>
+            إعادة المحاولة
+        </button>
+
+        <div class="status-indicator" id="statusIndicator">
+            <div class="status-dot"></div>
+            <span>غير متصل</span>
+        </div>
+    </div>
+
+    <script>
+        function retryConnection() {
+            // Add loading state
+            const btn = document.querySelector('.retry-btn');
+            btn.innerHTML = '<span>⏳</span> جاري التحقق...';
+            btn.disabled = true;
+
+            // Check connection
+            fetch('https://api.themoviedb.org/3/configuration?api_key=8265bd1679663a7ea12ac168da84d2e8')
+                .then(response => {
+                    if (response.ok) {
+                        // Online - redirect to home
+                        window.location.href = '/';
+                    } else {
+                        throw new Error('Still offline');
+                    }
+                })
+                .catch(() => {
+                    // Still offline
+                    btn.innerHTML = '<span>🔄</span> إعادة المحاولة';
+                    btn.disabled = false;
+                    
+                    // Shake animation
+                    btn.style.animation = 'shake 0.5s ease';
+                    setTimeout(() => btn.style.animation = '', 500);
+                });
+        }
+
+        // Listen for online/offline events
+        window.addEventListener('online', () => {
+            const indicator = document.getElementById('statusIndicator');
+            indicator.classList.add('online-status');
+            indicator.innerHTML = '<div class="status-dot"></div><span>متصل الآن!</span>';
+            
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        });
+
+        window.addEventListener('offline', () => {
+            const indicator = document.getElementById('statusIndicator');
+            indicator.classList.remove('online-status');
+            indicator.innerHTML = '<div class="status-dot"></div><span>غير متصل</span>';
+        });
+
+        // Check initial state
+        if (navigator.onLine) {
+            window.location.href = '/';
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

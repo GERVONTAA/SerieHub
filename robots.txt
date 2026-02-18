@@ -1,0 +1,20 @@
+# SerieHub Robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://seriehub.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin pages (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important resources
+Allow: /icon-*.png
+Allow: /manifest.json
+Allow: /*.css
+Allow: /*.js

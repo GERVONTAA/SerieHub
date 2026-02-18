@@ -1,0 +1,124 @@
+{
+    "name": "SerieHub - عالم المسلسلات والأنمي",
+    "short_name": "SerieHub",
+    "description": "أفضل موقع لمشاهدة الأنمي والمسلسلات بجودة عالية مع ترجمة عربية احترافية",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#0f0f23",
+    "theme_color": "#6366f1",
+    "scope": "/",
+    "lang": "ar",
+    "dir": "rtl",
+    "categories": ["entertainment", "video"],
+    "icons": [
+        {
+            "src": "icon-16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-152.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-180.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "apple-touch-icon"
+        },
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icon-384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "screenshot-wide.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "الصفحة الرئيسية"
+        },
+        {
+            "src": "screenshot-mobile.png",
+            "sizes": "750x1334",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "عرض الموبايل"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "أنمي",
+            "short_name": "أنمي",
+            "description": "تصفح الأنمي",
+            "url": "/?type=anime",
+            "icons": [{ "src": "icon-anime.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "مسلسلات",
+            "short_name": "مسلسلات",
+            "description": "تصفح المسلسلات",
+            "url": "/?type=tv",
+            "icons": [{ "src": "icon-tv.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "المفضلة",
+            "short_name": "المفضلة",
+            "description": "قائمة المفضلة",
+            "url": "/?favorites=true",
+            "icons": [{ "src": "icon-heart.png", "sizes": "96x96" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "share_target": {
+        "action": "/share",
+        "method": "GET",
+        "params": {
+            "title": "title",
+            "text": "text",
+            "url": "url"
+        }
+    }
+}
